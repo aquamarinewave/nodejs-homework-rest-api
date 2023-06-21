@@ -1,5 +1,11 @@
-const addSchema = require("./joi");
+const {
+  addSchema,
+  updateFavoriteSchema
+} = require("./joi");
+const Contact = require("./mongooseShemas");
 
 module.exports = {
-    addSchema,
+  addSchema,
+  updateFavoriteSchema,
+  Contact,
 };
