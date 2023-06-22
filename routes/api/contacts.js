@@ -3,7 +3,7 @@ const { isValidId } = require("../../helpers");
 
 const {
   createContact,
-  getContactList,
+  getAllContact,
   getContactById,
   updateContactById,
   deleteContactById,
@@ -12,7 +12,7 @@ const {
 
 const router = express.Router()
 
-router.get('/', getContactList);
+router.get('/', getAllContact);
 
 router.get('/:contactId', isValidId, getContactById);
 

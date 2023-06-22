@@ -2,7 +2,7 @@ const { HttpError } = require("../helpers");
 const { addSchema, updateFavoriteSchema } = require("../schemas");
 const { Contact } = require("../schemas");
 
-exports.getContactList = async (req, res, next) => {
+exports.getAllContact = async (req, res, next) => {
   try {
     const result = await Contact.find();
     res.json(result);
