@@ -1,11 +1,16 @@
 const {
   addSchema,
   updateFavoriteSchema
-} = require("./joi");
-const Contact = require("./mongooseShemas");
+} = require("./validateContacts");
+const { credSchema }  = require("./validateUsers");
+
+const Contact = require("./contactSchema");
+const User = require("./userSchema");
 
 module.exports = {
   addSchema,
+  credSchema,
   updateFavoriteSchema,
   Contact,
+  User,
 };
