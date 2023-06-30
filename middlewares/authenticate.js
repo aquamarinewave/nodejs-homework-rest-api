@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
-const { HttpError } = require("../helpers");
+const { HttpError } = require('../helpers');
 
 const { SECRET_KEY } = process.env;
-const { User } = require("../schemas");
+const { User } = require('../schemas');
 
 const authenticate = async (req, _, next) => {
   const { authorization = "" } = req.headers;
-  const [bearer, token] = authorization.split(" ");
-  if (bearer !== "Bearer") {
+  const [bearer, token] = authorization.split(' ');
+  if (bearer !== "Bearer" || !token) {
     next(HttpError(401, "Not authorized"));
   }
   try {

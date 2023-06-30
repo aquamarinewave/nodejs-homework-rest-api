@@ -3,6 +3,8 @@ const { credSchema } = require("../../schemas");
 const { User } = require("../../schemas");
 const bcrypt = require('bcrypt');
 const { SALT_ROUNDS } = process.env;
+const gravatar = require("gravatar");
+
 
 exports.createUser = async (req, res, next) => {
   try {
@@ -15,9 +17,13 @@ exports.createUser = async (req, res, next) => {
     if (user) {
       throw HttpError(409, "Email already in use");
     }
+
+    const avatarURL = gravatar.url(email);
+
     const newUser = {
       email, 
-      password: await bcrypt.hash(password, parseInt(SALT_ROUNDS))
+      password: await bcrypt.hash(password, parseInt(SALT_ROUNDS)),
+      avatarURL,
     }
     const result = await User.create(newUser);
     res.status(201).json(result);
