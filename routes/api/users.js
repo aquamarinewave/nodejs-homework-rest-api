@@ -5,8 +5,10 @@ const { updateAvatar } = require('../../controllers/users');
 
 const {
   createUser,
-   loginUser,
-   logoutUser,
+  loginUser,
+  logoutUser,
+  verifyAccount,
+  resendVerifyToken,
 } = require('../../controllers/auth');
 
 const {
@@ -29,5 +31,9 @@ router.patch(
   upload.single('avatar'),
   updateAvatar
 );
+
+router.get('/verify/:verificationToken', verifyAccount); 
+
+router.post('/verify', resendVerifyToken); 
 
 module.exports = router;

@@ -1,10 +1,10 @@
-const { HttpError } = require("../../helpers");
+const { HttpError, sendEmail } = require("../../helpers");
 const { credSchema } = require("../../schemas");
 const { User } = require("../../schemas");
 const bcrypt = require('bcrypt');
 const { SALT_ROUNDS } = process.env;
 const gravatar = require("gravatar");
-
+const { nanoid } = require("nanoid");
 
 exports.createUser = async (req, res, next) => {
   try {
@@ -19,13 +19,15 @@ exports.createUser = async (req, res, next) => {
     }
 
     const avatarURL = gravatar.url(email);
-
+    const verificationToken = nanoid();
     const newUser = {
       email, 
       password: await bcrypt.hash(password, parseInt(SALT_ROUNDS)),
       avatarURL,
+      verificationToken,
     }
     const result = await User.create(newUser);
+    await sendEmail(email, verificationToken);
     res.status(201).json(result);
   } catch (error) {
     next(error);
